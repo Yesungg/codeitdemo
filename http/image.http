@@ -1,6 +1,6 @@
 ###
 //이미지 url 생성 
-POST http://localhost:5000/api/image
+POST http://localhost:3000/api/image
 Content-Type: "multipart/form-data"
 
 {

@@ -2,23 +2,22 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// 배지 부여 함수
 const awardBadge = async (groupId, badgeType) => {
     const existingBadge = await prisma.badge.findFirst({
         where: {
-            groupId: parseInt(groupId),  // groupId를 정수로 변환
-            badge_type: badgeType,       // badgeType 대신 badge_type 사용
+            groupId: parseInt(groupId), 
+            badge_type: badgeType,       
         },
     });
 
     if (!existingBadge) {
         await prisma.badge.create({
             data: {
-                groupId: parseInt(groupId),  // groupId를 정수로 변환
-                badge_type: badgeType,       // badgeType 대신 badge_type 사용
+                groupId: parseInt(groupId),
+                badge_type: badgeType,       
             },
         });
-
-        // 배지가 부여되었다는 것을 로그로 남기거나 사용자에게 알림 전송
         console.log(`그룹 ID ${groupId}에 '${badgeType}' 배지가 부여되었습니다.`);
     }
 };
@@ -27,7 +26,7 @@ const awardBadge = async (groupId, badgeType) => {
 const check7DaysBadge = async (groupId) => {
     const posts = await prisma.post.findMany({
         where: {
-            groupId: parseInt(groupId),  // 그룹 ID를 숫자로 변환
+            groupId: parseInt(groupId),
         },
         orderBy: {
             createdAt: 'desc',
@@ -39,8 +38,6 @@ const check7DaysBadge = async (groupId) => {
     for (let i = 0; i < posts.length - 1; i++) {
         const currentDate = new Date(posts[i].createdAt);
         const nextDate = new Date(posts[i + 1].createdAt);
-
-        // 두 날짜가 1일 차이인지 확인 (UTC 기준)
         const diffDays = (currentDate.getUTCFullYear() - nextDate.getUTCFullYear()) * 365 
                          + (currentDate.getUTCMonth() - nextDate.getUTCMonth()) * 30 
                          + (currentDate.getUTCDate() - nextDate.getUTCDate());
@@ -62,7 +59,7 @@ const check7DaysBadge = async (groupId) => {
 const check20PostsBadge = async (groupId) => {
     const postCount = await prisma.post.count({
         where: {
-            groupId: parseInt(groupId),  // 그룹 ID를 숫자로 변환
+            groupId: parseInt(groupId),
         }
     });
 
@@ -75,7 +72,7 @@ const check20PostsBadge = async (groupId) => {
 // 그룹 생성 후 1년 달성 배지 확인
 const checkOneYearBadge = async (groupId) => {
     const group = await prisma.group.findUnique({
-        where: { id: parseInt(groupId) },  // 그룹 ID를 숫자로 변환
+        where: { id: parseInt(groupId) },
         
     });
 
@@ -89,11 +86,11 @@ const checkOneYearBadge = async (groupId) => {
 // 그룹 공간 1만 개 이상 받기 배지 확인
 const checkSpaceBadge = async (groupId) => {
     const group = await prisma.group.findUnique({
-        where: { id: parseInt(groupId) },  // 그룹 ID를 숫자로 변환
+        where: { id: parseInt(groupId) }, 
         include: {
             badges: {
                 select: {
-                    badge_type: true,  // badge_type 필드를 명시적으로 선택
+                    badge_type: true,
                 },
             },
             posts: true,
@@ -109,7 +106,7 @@ const checkSpaceBadge = async (groupId) => {
 const checkLikeBadge = async (groupId) => {
     const postWith10kLikes = await prisma.post.findFirst({
         where: { 
-            groupId: parseInt(groupId),  // 그룹 ID를 숫자로 변환
+            groupId: parseInt(groupId),
             likeCount: { gte: 10000 }
         },
     });

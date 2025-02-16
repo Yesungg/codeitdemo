@@ -1,0 +1,73 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* 검색 필터 영역 스타일 */
+  .filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* 공개/비공개 버튼 */
+  .toggle-buttons {
+    display: flex;
+  }
+  
+  .toggle-btn {
+    padding: 8px 16px;
+    margin-right: 5px;
+    border: none;
+    background-color: #e0e0e0;
+    color: #333;
+    cursor: pointer;
+    border-radius: 20px;
+  }
+  
+  .toggle-btn.active {
+    background-color: black;
+    color: white;
+  }
+  
+  /* 검색창 */
+  .search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+  }
+  
+  /* 드롭다운 */
+  .sort-dropdown {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+  }
+  
+  /* 더보기 버튼 */
+  .more-button-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .more-button {
+    padding: 10px 20px;
+    border: 1px solid black;
+    background: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .more-button:hover {
+    background: black;
+    color: white;
+  }
+  

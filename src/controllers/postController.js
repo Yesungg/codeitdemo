@@ -18,7 +18,7 @@ exports.createPost = async (req, res) => {
     
     // 이미지 URL이 제공되지 않았다면 기본 이미지 URL 사용
     if (!imageUrl) {
-      imageUrl = 'https://raw.githubusercontent.com/yhkithub/jogakzip-api/main/public/images/test.png';
+      imageUrl = 'https://github.com/Yesungg/codeitdemo/blob/e4dc5c5a8a806d17116ebe078fd5f3c2d209054f/img/default-image.png?raw=true';
     }
     
     // tags가 배열이면 콤마로 구분된 문자열로 변환

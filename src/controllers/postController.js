@@ -58,19 +58,6 @@ exports.createPost = async (req, res) => {
   }
 };
 
-    
-    // 게시물이 생성되면 해당 그룹의 postCount를 1 증가시킵니다.
-    await prisma.group.update({
-      where: { id: parseInt(groupId) },
-      data: { postCount: { increment: 1 } }
-    });
-    
-    res.status(201).json(newPost);
-  } catch (error) {
-    console.error("게시물 생성 오류:", error);
-    res.status(500).json({ message: '게시물 등록 중 오류 발생' });
-  }
-};
 
 /**
  * 게시물 목록 조회 (GET /api/groups/{groupId}/posts)

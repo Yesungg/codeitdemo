@@ -12,9 +12,11 @@
   "dependencies": {
     "@prisma/client": "^6.3.1",
     "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "express-session": "^1.18.1",
     "is-email": "^1.0.2",
     "is-uuid": "^1.0.2",
     "multer": "^1.4.5-lts.1",
@@ -23,5 +25,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
   }
 }

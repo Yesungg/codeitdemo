@@ -1,0 +1,230 @@
+/* 모달 전체 배경 (오버레이) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 추가 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* 모달 창 */
+.modal-content {
+  background: #FAFAFA;
+  padding: 32px; /* 피그마 기준 */
+  width: 30%; /* 피그마 기준 너비 */
+  border-radius: 6px;
+  z-index: 10000;
+  position: relative;
+}
+
+/* 닫기 버튼 */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+/* 모달 제목 */
+.modal-title {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  color: #282828;
+  margin-bottom: 30px;
+}
+
+/* 입력 필드 컨테이너 */
+.group-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+/* 입력 필드 라벨 */
+.group-container label {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 20.03px;
+  color: #282828;
+  margin-bottom: 0.5px;
+}
+
+/* 입력 필드 */
+.modal-input {
+  width: calc(100% - 30px); /* 모달 내부 padding 고려 */
+  height: 20px;  /* 기존 height 수정 */
+  margin-top: 8px;
+  padding: 10px;
+  padding-left: 17px;
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
+  background: #FAFAFA;
+  font-size: 13px;
+  color: #282828;
+  align-items: center;
+}
+
+/* 파일 업로드 스타일 */
+.modal-file-upload {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%; /* 부모 요소 기준으로 정렬 */
+}
+
+/* 파일 선택 버튼 */
+.modal-file-button {
+  width: 100px;
+  height: 42px;
+  border-radius: 6px;
+  border: 1px solid #282828;
+  background: #FAFAFA;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+  flex-shrink: 0; /* 크기 고정 */
+  margin-top: 7px;
+
+  display: flex;
+  align-items: center; /* 텍스트 수직 정렬 */
+  justify-content: center;
+}
+
+
+/* 텍스트 에어리어 */
+.modal-textarea {
+  width: calc(100% - 33px); /* 좌우 패딩 고려한 크기 설정 */
+  height: 100px;
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
+  background: #FAFAFA;
+  padding: 15px;
+  padding-left: 17px;
+  font-size: 13px;
+  resize: none;
+
+  margin-top: 8px;
+  color: #282828;
+
+  /* 정렬 문제 해결 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+}
+
+/* 그룹 공개 선택 레이아웃 */
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 13px;
+}
+
+/* "공개" 텍스트 스타일 */
+.toggle-label {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #282828;
+  line-height: 17.53px;
+  letter-spacing: -3%;
+}
+
+/* 토글 버튼 스타일 */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+/* 숨겨진 체크박스 */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* 토글 배경 */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #DDDDDD; /* 꺼진 상태 색상 */
+  border-radius: 24px;
+  transition: 0.4s;
+}
+
+/* ✅ 토글 동그라미 */
+.slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+/* 활성화(켜짐) 상태 */
+input:checked + .slider {
+  background-color: #282828; /* 켜진 상태 색상 */
+}
+
+/* 활성화 시 동그라미 이동 */
+input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+
+/* 모달 버튼 스타일 */
+.modal-button {
+  width: 100%;
+  height: 48px;
+  background: #282828;
+  color: #FAFAFA;
+
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 16px;
+
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20.03px;
+  letter-spacing: -3%;
+  text-align: center;
+
+}
+
+.modal-button:hover {
+  background: #444;
+}
+
+/* 닫기 버튼 */
+.modal-close {
+  position: absolute;
+  top: 20px;
+  right: 32px;
+  font-size: 20px;
+  cursor: pointer;
+}

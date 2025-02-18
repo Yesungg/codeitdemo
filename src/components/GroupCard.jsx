@@ -15,11 +15,14 @@ const GroupCard = ({ group, isPrivate }) => {
       <h3>{group.title}</h3>
       <p>{group.description}</p>
 
-      <div className="group-stats">
-        <span>획득 배지 {group.badges}</span>
-        <span>추억 {group.memories}</span>
-        <span>그룹 공감 {group.likes.toLocaleString()}</span>
-      </div>
+      {/* 그룹 통계 정보 유지 */}
+      {group.badges !== undefined && group.memories !== undefined && group.likes !== undefined && (
+        <div className="group-stats">
+          <span>획득 배지 {group.badges}</span>
+          <span>추억 {group.memories}</span>
+          <span>그룹 공감 {group.likes.toLocaleString()}</span>
+        </div>
+      )}
     </div>
   );
 };

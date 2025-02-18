@@ -1,0 +1,148 @@
+.first {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  font-size: 14px;
+}
+
+.second {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+#like {
+  background: none;
+  border: 1px solid #282828;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#like img {
+  width: 15px;
+  height: 15px;
+}
+
+#edit_memory {
+  margin-right: 15px;
+  color: #282828;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#delete_memory {
+  color: #b8b8b8;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.container {
+  width: 80%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.space1 {
+  margin-left: 10px;
+  color: #b8b8b8;
+}
+
+.space2 {
+  margin-left: 10px;
+  color: #b8b8b8;
+}
+
+.post_title {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.post_meta {
+  color: #b8b8b8;
+  font-size: 14px;
+  margin-bottom: 0px;
+}
+
+.post_meta span {
+  margin-right: 15px;
+}
+
+.post_info {
+  color: #8d8d8d;
+  font-size: 14px;
+}
+
+.post_info .weight {
+  color: #282828;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.post_info span:first-child+span::before {
+  content: "· ";
+  margin-left: 10px;
+}
+
+.post_info span:first-child+span+span {
+  margin-left: 25px;
+}
+
+.post_info span:first-child+span+span img {
+  width: 15px;
+  height: 15px;
+}
+
+.post_info span:last-child {
+  margin-left: 10px;
+}
+
+.post_info span:last-child img {
+  width: 17px;
+  height: 17px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.content p {
+  width: 400px;
+}
+
+.content button {
+  width:200px;
+  height: 30px;
+  background-color: #000000;
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.post_image img{
+  width: 100%;
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.post_content {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}

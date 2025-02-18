@@ -1,16 +1,14 @@
 .group-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between; /* 좌우 간격 동일하게 */
-  gap: 20px; /* 카드 사이의 간격 */
-  padding: 20px 0; /* 위아래 간격 */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+  gap: 20px;
+  padding: 20px;
 }
 
-  
-  .group-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    text-align: center;
-  }
+.group-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+}

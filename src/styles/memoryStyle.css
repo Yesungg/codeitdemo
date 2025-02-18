@@ -1,0 +1,211 @@
+/* 추억 목록 전체 컨테이너 */
+.memory-container {
+  column-count: 3;  /* 3개의 열로 나눔 (화면 크기에 따라 조정 가능) */
+  column-gap: 20px; /* 열 사이 간격 */
+  width: 100%;
+  max-width: 1560px;
+  margin: auto;
+  padding: 0;
+  margin-top: 40px;
+  grid-auto-flow: dense; /* 자동 정렬을 더 최적화 */
+}
+
+
+/* MemoryCard 기본 스타일 */
+.memory-card {
+  width: 100%;
+  break-inside: avoid; /* 카드가 중간에 끊기지 않도록 */
+  border-radius: 12px;
+  border: 1px solid #DDDDDD;
+  background-color: #FAFAFA;
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 20px; /* 카드 간 여백 추가 */
+}
+
+/* 이미지 스타일 */
+.memory-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+/* 닉네임과 공개 여부 */
+.memory-meta {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17.53px;
+  letter-spacing: -3%;
+  color: #000;
+  text-align: left; /* 왼쪽 정렬 */
+  width: 100%;
+}
+
+.memory-meta .divider {
+  margin: 0 8px;
+}
+
+/* 제목 */
+.memory-title {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20.03px;
+  letter-spacing: -3%;
+  color: #000;
+  text-align: left;
+  width: 100%;
+}
+
+/* 태그 */
+.memory-tags {
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17.53px;
+  letter-spacing: -3%;
+  color: #B8B8B8;
+  text-align: left; /* 왼쪽 정렬 */
+  width: 100%;
+}
+
+/* 장소, 날짜 + 공감 & 댓글을 같은 줄에 정렬 */
+.memory-meta-container {
+  display: flex;
+  justify-content: space-between; /* 좌우 정렬 */
+  align-items: center;
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* 장소, 날짜 */
+.memory-meta {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: "Spoqa Han Sans Neo", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15.02px;
+  letter-spacing: -3%;
+  color: #282828;
+  flex-grow: 1; /* 왼쪽 공간을 모두 차지하도록 설정 */
+}
+
+/* 공감 & 댓글 */
+.memory-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* 공감과 댓글 사이 여백 */
+  margin-left: auto; /* 오른쪽으로 밀어내기 */
+  flex-shrink: 0; /* 줄어들지 않도록 설정 */
+  min-width: 100px; /* 최소 너비 설정 */
+  justify-content: flex-end; /* 내부 요소를 오른쪽 정렬 */
+}
+
+
+.memory-actions span {
+  display: flex;
+  align-items: center;
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17.53px;
+  letter-spacing: -3%;
+  color: #8D8D8D;
+  
+}
+
+/* 아이콘 크기 조정 */
+.memory-actions .icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px; /* 아이콘과 숫자 사이 여백 */
+}
+
+/* 추가적으로 개선한 점 (반응형) */
+@media (max-width: 1024px) {
+  .memory-container {
+      column-count: 2;  /* 화면이 작으면 2열 */
+  }
+}
+
+@media (max-width: 768px) {
+  .memory-container {
+      column-count: 1;  /* 모바일에서는 1열 */
+  }
+}
+
+
+/* 데이터가 없을 때 표시될 UI 스타일 */
+.empty-memory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px;
+  margin-top: 50px;
+}
+
+.empty-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 16px;
+}
+
+.empty-text {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22.54px;
+  letter-spacing: -3%;
+  text-align: center;
+  color: #8D8D8D;
+  margin-top: 30px;
+}
+
+.empty-subtext {
+  font-family: "Spoqa Han Sans Neo";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17.53px;
+  letter-spacing: -3%;
+  text-align: center;
+  color: #B8B8B8;
+  margin-top: 0px;
+  margin-bottom: 250px;
+}
+
+.memory-write-button2 {
+  width: 400px; 
+  height: 50px; 
+  background-color: #282828; /* 배경 색상 */
+  color: #FAFAFA; /* 글자 색상 */
+  border: none;
+  border-radius: 6px; /* 모서리 둥글기 */
+  font-family: 'Spoqa Han Sans Neo', sans-serif;
+  font-weight: 700;
+  font-size: 14px; 
+  line-height: 17.53px;
+  letter-spacing: -3%;
+  
+  position: absolute;
+  bottom: 100px; /* 화면 아래쪽에 고정 */
+  left: 50%;
+  transform: translateX(-50%); /* 정확히 중앙 정렬 */
+
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+/* 버튼에 마우스 올렸을 때 (추가 디자인 요소..) */
+.memory-write-button2:hover {
+  background-color: #3a3a3a;
+}

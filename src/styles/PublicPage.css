@@ -4,15 +4,14 @@
     padding: 20px;
   }
   
-  /* 검색 필터 영역 스타일 */
   .filter-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background-color: #f8f8f8;
-    padding: 10px 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
+    gap: 10px; /* 요소 간격 */
+    justify-content: center;
+    width: 100%;
+    max-width: 900px; /* 전체 컨테이너 최대 너비 설정 */
+    margin: 0 auto;
   }
   
   /* 공개/비공개 버튼 */
@@ -37,18 +36,19 @@
   
   /* 검색창 */
   .search-input {
-    flex: 1;
-    padding: 8px 12px;
+    flex-grow: 1; /* 가능한 공간 모두 차지 */
+    width: 100%;
+    max-width: 600px; /* 검색창을 더 길게 */
+    padding: 12px 16px;
     border: 1px solid #ccc;
-    border-radius: 20px;
-    outline: none;
+    border-radius: 8px;
+    font-size: 16px;
   }
   
-  /* 드롭다운 */
   .sort-dropdown {
-    padding: 8px;
+    padding: 10px;
+    border-radius: 8px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     background: white;
     cursor: pointer;
   }

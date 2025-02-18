@@ -8,40 +8,42 @@ const PublicPage = () => {
   const [filter, setFilter] = useState("public"); // "public" 또는 "private"
 
   return (
-    <div className="container">
-      {/* 검색 필터 영역 */}
+    <div className="page-container">
       <div className="filter-container">
-        <div className="toggle-buttons">
-          <button 
-            className={`toggle-btn ${filter === "public" ? "active" : ""}`} 
-            onClick={() => setFilter("public")}
-          >
-            공개
-          </button>
-          <button 
-            className={`toggle-btn ${filter === "private" ? "active" : ""}`} 
-            onClick={() => setFilter("private")}
-          >
-            비공개
-          </button>
-        </div>
-        <input 
-          type="text" 
-          className="search-input" 
-          placeholder="그룹명을 검색해 주세요" 
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <select 
-          className="sort-dropdown" 
-          value={sortOption} 
-          onChange={(e) => setSortOption(e.target.value)}
-        >
-          <option value="공감순">공감순</option>
-          <option value="최신순">최신순</option>
-          <option value="조회순">조회순</option>
-        </select>
-      </div>
+  <div className="toggle-buttons">
+    <button 
+      className={`toggle-btn ${filter === "public" ? "active" : ""}`} 
+      onClick={() => setFilter("public")}
+    >
+      공개
+    </button>
+    <button 
+      className={`toggle-btn ${filter === "private" ? "active" : ""}`} 
+      onClick={() => setFilter("private")}
+    >
+      비공개
+    </button>
+  </div>
+
+  {/* 검색창이 넓어지도록 div 추가 */}
+  <input 
+    type="text" 
+    className="search-input" 
+    placeholder="그룹명을 검색해 주세요" 
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+
+  <select 
+    className="sort-dropdown" 
+    value={sortOption} 
+    onChange={(e) => setSortOption(e.target.value)}
+  >
+    <option value="공감순">공감순</option>
+    <option value="최신순">최신순</option>
+    <option value="조회순">조회순</option>
+  </select>
+</div>
 
       {/* 그룹 리스트 */}
       <GroupList searchTerm={searchTerm} filter={filter} sortOption={sortOption} />

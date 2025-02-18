@@ -1,9 +1,11 @@
 .group-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
-    gap: 20px;
-    padding: 20px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* 좌우 간격 동일하게 */
+  gap: 20px; /* 카드 사이의 간격 */
+  padding: 20px 0; /* 위아래 간격 */
+}
+
   
   .group-card {
     background-color: white;

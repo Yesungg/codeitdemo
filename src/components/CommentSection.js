@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import axios from "axios";
 import './CommentSection.css';
 import CommentEnter from './CommentEnter';
 import CommentEdit from './CommentEdit';
 import CommentDel from './CommentDel';
 
-function CommentSection({ onCommentCountChange }) {
+function CommentSection({ postId, onCommentCountChange }) {
+  console.log("CommentSection postId", postId);
   const [comments, setComments] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false); // 팝업 상태
   const [editCommentId, setEditCommentId] = useState(null);
@@ -15,6 +17,26 @@ function CommentSection({ onCommentCountChange }) {
       onCommentCountChange(comments.length);
     }
   }, [comments, onCommentCountChange]);
+
+  // ✅ 백엔드에서 댓글 목록 가져오기
+  useEffect(() => {
+
+    if (!postId) {
+      console.warn("❌ postId가 존재하지 않습니다. API 요청을 중단합니다.");
+      return;
+    }
+    
+    console.log("🟢 백엔드 요청 URL:", `http://localhost:3000/api/posts/${postId}/comments`);
+
+    axios.get(`http://localhost:3000/api/posts/${postId}/comments`)
+      .then((response) => {
+        console.log("🟢 댓글 목록 응답 데이터:", response.data);
+        setComments(response.data.data); // 백엔드 응답에서 실제 댓글 데이터만 사용
+      })
+      .catch((error) => {
+        console.error("댓글을 불러오는 중 오류 발생:", error);
+      });
+  }, [postId]);
 
   // 새 댓글 추가 함수
   const addComment = (newComment) => {
@@ -53,7 +75,7 @@ function CommentSection({ onCommentCountChange }) {
   return (
     <div class="comment_section">
       <button id="click" onClick={handleEnterComment}>댓글 등록하기</button>
-      {isPopupOpen && <CommentEnter onClose={() => setIsPopupOpen(false)} onAddComment={addComment} />}
+      {isPopupOpen && <CommentEnter postId={postId} onClose={() => setIsPopupOpen(false)} onAddComment={addComment} />}
       <h2>댓글 {comments.length}</h2>
 
       <ul className="comment_list">

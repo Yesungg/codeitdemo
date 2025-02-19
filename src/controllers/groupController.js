@@ -1,13 +1,11 @@
-const prisma = require('../../prisma/prismaClient');
+const prisma = require('../../prisma/prismaClient.js');
 const bcrypt = require('bcrypt');
-const prisma = require('../../prisma/prismaClient');
-
 
 const createGroup = async (req, res) => {
     try {
         const { name, password, imageUrl, isPublic, introduction } = req.body;
 
-        if (!name || !password) {
+        if (!name || !password) {const prisma = require('../../prisma/prismaClient');
             return res.status(400).json({ message: "그룹명과 비밀번호는 필수 입력값입니다." });
         }
 
@@ -285,3 +283,13 @@ const checkGroupIsPublic = async (req, res) => {
     }
 };
 
+module.exports = {
+    createGroup,
+    getGroups, 
+    getGroupById, 
+    updateGroup, 
+    deleteGroup, 
+    verifyGroupPassword, 
+    likeGroup, 
+    checkGroupIsPublic
+}

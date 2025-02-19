@@ -13,11 +13,11 @@ app.use(cors()); // 모든 도메인에서의 요청을 허용
 app.use(express.static('public'));
 
 // 라우터 파일들 임포트
-const groupRoutes = require('./routes/groupRoutes');     // 그룹 관련 API (경로는 내부에서 '/','/:groupId', '/:groupId/like' 등으로 정의됨)
-const postRoutes = require('./routes/postRoutes');       // 게시물 관련 API (내부에서 '/groups/:groupId/posts'와 '/posts/:postId' 등으로 정의됨)
-const commentRoutes = require('./routes/commentRoutes'); // 댓글 관련 API
-const imageRoutes = require('./routes/imageRoutes');     // 이미지 업로드 API
-const badgeRoutes = require('./routes/badgeRoutes');     // 뱃지 관련 API
+const groupRoutes = require('./src/routes/groupRoutes');     // 그룹 관련 API (경로는 내부에서 '/','/:groupId', '/:groupId/like' 등으로 정의됨)
+const postRoutes = require('./src/routes/postRoutes');       // 게시물 관련 API (내부에서 '/groups/:groupId/posts'와 '/posts/:postId' 등으로 정의됨)
+const commentRoutes = require('./src/routes/commentRoutes'); // 댓글 관련 API
+const imageRoutes = require('./src/routes/imageRoutes');     // 이미지 업로드 API
+const badgeRoutes = require('./src/routes/badgeRoutes');     // 뱃지 관련 API
 
 // 라우터 등록  
 // 그룹 관련 라우터는 그룹 API 명세에 따라 '/api/groups' 아래에 있어야 합니다.

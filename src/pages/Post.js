@@ -7,15 +7,14 @@ import MemoEdit from '../components/MemoEdit.js';
 import MemoDel from '../components/MemoDel.js';
 import CommentSection from '../components/CommentSection.js';
 
-function Post() {
+function Post({}) {
   const { postId } = useParams();
+  const numericPostId = Number(postId);
   const location = useLocation();
-
-  console.log("📌 현재 postId:", postId);
-  console.log("📌 현재 location.state:", location.state);
+  const memory = location.state;
 
   const [group, setGroup] = useState(location.state || {});
-  const [post, setPost] = useState(null);
+  // const [post, setPost] = useState(null);
   const [popupType, setPopupType] = useState(null);
   const [commentCount, setCommentCount] = useState(0);
 
@@ -32,18 +31,18 @@ function Post() {
   // });
 
 
-  useEffect(() => {
-    axios.get(`http://localhost:3000/api/groups/${postId}`)
-      .then((response) => {
-        console.log("🟢 게시글 데이터 불러오기 성공:", response.data);
-        setPost(response.data);
-      })
-      .catch((error) => {
-        console.error("❌ 게시글 데이터를 불러오는 중 오류 발생:", error);
-      });
-  }, [postId, group]);
+  // useEffect(() => {
+  //   axios.get(`http://localhost:3000/api/groups/${postId}`)
+  //     .then((response) => {
+  //       console.log("🟢 게시글 데이터 불러오기 성공:", response.data);
+  //       setPost(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("❌ 게시글 데이터를 불러오는 중 오류 발생:", error);
+  //     });
+  // }, [postId, group]);
 
-  if (!post) return <div>게시글을 불러오는 중...</div>; // ✅ 데이터 로딩 중 표시
+  // if (!post) return <div>게시글을 불러오는 중...</div>; // ✅ 데이터 로딩 중 표시
 
   const handleEditMemory = () => {
     setPopupType("edit"); // 팝업 열기
@@ -61,19 +60,20 @@ function Post() {
     <div className="container">
       <div className="first">
         <p>
-          <span>달봉이아들</span>
+          <span>{memory.username}</span>
           <span className="space1">|</span>
-          <span className="space2">공개</span>
+          <span className="space2">{memory.isPublic ? '공개' : '비공개'}</span>
         </p>
         <p>
           <button id="edit_memory" onClick={handleEditMemory}>추억 수정하기</button>
           <button id="delete_memory" onClick={handleDeleteMemory}>추억 삭제하기</button>
         </p>
       </div>
-      <h2 className="post_title">인천 앞바다에서 무려 60cm 월척을 낚다!{post.title}</h2>
-      <p className="post_meta"> {post.description}
-        <span>#인천</span>
-        <span>#낚시</span>
+      <h2 className="post_title">{memory.title}</h2>
+      <p className="post_meta"> {memory.description}
+        {memory.tags.map((item, index) => (
+          <span key={index}>#{item}</span>
+        ))}
       </p>
       <div className="second">
         <p className="post_info">
@@ -91,9 +91,9 @@ function Post() {
       </div>
       <div className="content">
         <div className="post_image">
-          <img src={post.image} alt="낚시 사진" />
+          <img src={memory.image} alt="낚시 사진" />
         </div>
-        <p>{post.comment}인천 앞바다에서 월척을 낚았습니다! 가족들과 기억에 오래도록 남을 멋진 하루였어요.</p>
+        <p>{memory.comment}인천 앞바다에서 월척을 낚았습니다! 가족들과 기억에 오래도록 남을 멋진 하루였어요.</p>
       </div>
 
       <CommentSection onCommentCountChange={handleCommentCountChange} />

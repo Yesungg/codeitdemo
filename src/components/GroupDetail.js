@@ -14,7 +14,6 @@ const GroupDetail = () => {
     const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 추가
     const [totalMemories, setTotalMemories] = useState(0); // 상태 추가
     console.log("GroupDetail에서 받은 totalMemories:", totalMemories);  // ✅ 디버깅용 로그
-
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
     // 삭제 함수 (나중에 백엔드 연결하면 API 요청 추가)
@@ -27,7 +26,6 @@ const GroupDetail = () => {
   
   const { groupId } = useParams(); // URL에서 groupId 가져오기
   const numericGroupId = parseInt(groupId);
-  console.log("현재 URL에서 가져온 groupId:", groupId);
 
   const location = useLocation();
   const [group, setGroup] = useState(location.state || null);
@@ -35,32 +33,32 @@ const GroupDetail = () => {
   // const group = groupData.find(g => g.id === numericGroupId);
   // const memories = getMemoriesByGroupId(numericGroupId);
 
-  console.log("📌 현재 URL에서 가져온 groupId:", numericGroupId);
+  console.log("📌 현재 URL에서 가져온 groupId:",numericGroupId);
   console.log("📌 location.state에서 받은 그룹 데이터:", location.state);
 
   // ✅ 만약 location.state가 없을 경우, 백엔드에서 데이터 가져오기 (예제)
-  useEffect(() => {
-    if (!group) {
-        axios.get(`http://localhost:3000/api/groups/${groupId}`)
-            .then((response) => {
-                console.log("🟢 그룹 데이터 불러오기 성공:", response.data);
-                setGroup(response.data);
-            })
-            .catch((error) => console.error("❌ 그룹 데이터를 불러오는 중 오류 발생:", error));
-    }
+//   useEffect(() => {
+//     if (!group) {
+//         axios.get(`http://localhost:3000/api/groups/${groupId}`)
+//             .then((response) => {
+//                 console.log("🟢 그룹 데이터 불러오기 성공:", response.data);
+//                 setGroup(response.data);
+//             })
+//             .catch((error) => console.error("❌ 그룹 데이터를 불러오는 중 오류 발생:", error));
+//     }
 
-    // ✅ 백엔드에서 해당 그룹의 게시물 목록 불러오기
-    axios.get(`http://localhost:3000/api/groups/${groupId}/posts`)
-        .then((response) => {
-            console.log("🟢 그룹 게시물 목록 불러오기 성공:", response.data);
-            setMemories(response.data.data);
-            setTotalMemories(response.data.data.length);
-        })
-        .catch((error) => console.error("❌ 그룹 게시물 데이터를 불러오는 중 오류 발생:", error));
-}, [groupId, group]);
+//     // ✅ 백엔드에서 해당 그룹의 게시물 목록 불러오기
+//     axios.get(`http://localhost:3000/api/groups/${groupId}/posts`)
+//         .then((response) => {
+//             console.log("🟢 그룹 게시물 목록 불러오기 성공:", response.data);
+//             setMemories(response.data.data);
+//             setTotalMemories(response.data.data.length);
+//         })
+//         .catch((error) => console.error("❌ 그룹 게시물 데이터를 불러오는 중 오류 발생:", error));
+// }, [groupId, group]);
   // groupId와 일치하는 그룹 찾기
   // const group = groupData.find((g) => g.groupId.toString() === groupId);
-  console.log("찾은 그룹 데이터:", group);
+  console.log("찾은 그룹 데이터:", groupData);
 
   // 공감 수 상태 관리 (초기값: group.likes)
   const [likes, setLikes] = useState(group ? Number(group.likes) : 0);
@@ -78,17 +76,17 @@ const GroupDetail = () => {
   return (
     <section className="group-detail">
       <div className="group-header">
-      <img src={group.imageUrl} alt="그룹 대표 이미지" className="group-image" />
+      <img src={groupData.imageUrl} alt="그룹 대표 이미지" className="group-image" />
 
       <div className="group-info">
         <div className="group-center">
             <div className="group-meta">
-                <span>D+{group.dDay}</span> 
+                <span>D+{groupData.dDay}</span> 
                 <span className="group-privacy">|  공개</span>
             </div>
 
             <div className="group-header-container">
-                <h2 className="group-title">{group.name}</h2>
+                <h2 className="group-title">{groupData.name}</h2>
 
                 <div className="group-stats">
                     <span>추억 {totalMemories}</span>
@@ -97,7 +95,7 @@ const GroupDetail = () => {
                 </div>
             </div>
 
-            <p className="group-desc">{group.description}</p>
+            <p className="group-desc">{groupData.description}</p>
 
             {/* 획득 배지 */}
             <div className="badge-section">
@@ -146,7 +144,8 @@ const GroupDetail = () => {
     <Divider />
 
     {/* ✅ MemoryList를 GroupDetail 내부에서 렌더링 */}
-    <MemoryList setTotalMemories={setTotalMemories} groupId={numericGroupId} memories={memories} />
+    <MemoryList groupId={numericGroupId} memories={memories} />
+    {/* setTotalMemories={setTotalMemories}  */}
 
 
     </section>

@@ -1,14 +1,16 @@
 /* 각 추억 카드 컴포넌트 */
-
-import React from "react";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import "../styles/memoryStyle.css";
 import likeIcon from "../img/like-icon.svg"; // 공감 아이콘
 import commentIcon from "../img/comment-icon.svg"; // 댓글 아이콘
 
 
-const MemoryCard = ({ memory }) => {
+const MemoryCard = ({ memory, onClick }) => {
+  console.log("📌 Memory 데이터:", memory);
+
   return (
-    <div className="memory-card">
+    <div className="memory-card" onClick={onClick}>
       <img src={memory.imageUrl} alt={memory.title} className="memory-image" />
       <div className="memory-content">
         <p className="memory-meta">

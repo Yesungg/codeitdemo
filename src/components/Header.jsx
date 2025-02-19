@@ -10,7 +10,7 @@ const Header = () => {
       {/* 헤더 내부 컨테이너 */}
       <div className="header-content">
         {/* 로고 이미지 */}
-        <img src="/images/image.png" alt="조각집 로고" className="header-logo" />
+        <img src="main_title.png" alt="조각집 로고" className="header-logo" />
       </div>
 
       {/* 그룹 만들기 버튼 */}

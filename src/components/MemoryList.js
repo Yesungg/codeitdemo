@@ -102,7 +102,7 @@ const MemoryList = ({ groupId }) => { // 부모에서 값을 업데이트할 수
     <section className="memory-list">
       <div className="memory-header">
         <h2 className="memory-title">추억 목록</h2>
-        <button className="memory-write-button">추억 올리기</button>
+        <button className="memory-write-button" onClick={() => navigate("/MemoryUpload")}>추억 올리기</button>
       </div>
 
       <div className="memory-controls">
@@ -152,7 +152,7 @@ const MemoryList = ({ groupId }) => { // 부모에서 값을 업데이트할 수
               <img src="/img/empty-icon.svg" alt="추억 없음" className="empty-icon" />
               <p className="empty-text">게시된 추억이 없습니다.</p>
               <p className="empty-subtext">첫 번째 추억을 올려보세요!</p>
-              <button className="memory-write-button2">추억 올리기</button>
+              <button className="memory-write-button2" onClick={() => navigate("/MemoryUpload")}>추억 올리기</button>
           </div>
       ) : (
           <>

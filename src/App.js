@@ -9,6 +9,7 @@ import AccessCheck from "./pages/AccessCheck";
 import GroupList from "./components/GroupList";
 import GroupDetail from "./components/GroupDetail";
 import Post from "./pages/Post";
+import MemoryUpload from "./components/MemoryUpload.js";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/groups" element={<GroupList />} />
                 <Route path="/groups/:groupId" element={<GroupDetail />} />
                 <Route path="/posts/:postId" element={<Post />} />
+                <Route path="/memoryUpload" element={<MemoryUpload />} />
               </Routes>
             </>
           }

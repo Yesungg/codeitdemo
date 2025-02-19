@@ -19,7 +19,7 @@ async function main() {
     const group1 = await prisma.group.create({
         data: {
             name: "첫 번째 그룹",
-            imageUrl: "https://example.com/group1.jpg",
+            imageUrl: "http://localhost:3000/uploads/sample-image1.jpg",
             badgeCount: 0,
             postCount: 0,
             likeCount: 0,
@@ -35,7 +35,7 @@ async function main() {
             nickname: "John Doe",
             title: "첫 번째 게시글",
             content: "이것은 샘플 게시글입니다.",
-            imageUrl: "https://example.com/post1.jpg",
+            imageUrl: "http://localhost:3000/uploads/sample-image2.jpg",
             location: "서울",
             moment: new Date(),
             isPublic: true,

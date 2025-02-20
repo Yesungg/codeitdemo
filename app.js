@@ -27,7 +27,7 @@ const badgeRoutes = require('./src/routes/badgeRoutes');     // 뱃지 관련 AP
 app.use('/api/groups', groupRoutes);
 // 게시물 관련 라우터는 내부에서 '/groups/:groupId/posts'와 '/posts/:postId'로 정의했으므로,  
 // 전체 경로를 '/api' 아래에 마운트합니다.
-app.use('/api', postRoutes);
+app.use('/api/groups', postRoutes);
 // 댓글 관련 라우터는 '/posts/:postId/comments' 또는 '/comments/:commentId'로 정의되어 있으므로,  
 // '/api' 아래에 마운트합니다.
 app.use('/api', commentRoutes);

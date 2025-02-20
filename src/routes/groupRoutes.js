@@ -9,7 +9,7 @@ router.post('/', createGroup);
 router.get('/api/groups', getGroups);
 
 // 그룹 상세 조회
-router.get('/api/groups/:groupId', getGroupById);
+router.get('/:groupId', getGroupById);
 
 // 그룹 수정
 router.put('/api/groups/:groupId', updateGroup);

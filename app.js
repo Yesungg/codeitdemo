@@ -3,6 +3,9 @@ const path = require("path");
 const cors = require('cors'); // CORS 미들웨어 추가
 const app = express();
 
+// 📌 'uploads' 폴더를 정적 파일로 제공하도록 설정
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // JSON 형식의 요청을 파싱
 app.use(express.json());
 

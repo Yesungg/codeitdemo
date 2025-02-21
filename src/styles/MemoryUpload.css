@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 90Vh;
+  margin-top: 60px;
   width: 100%;
   background: #FAFAFA;
   font-family: "Spoqa Han Sans Neo", sans-serif;
@@ -258,6 +258,7 @@ input:checked + .slider::before {
 .memory-upload-form .checkbox-container input {
   width: auto;
 }
+
 
 /* 버튼 스타일 */
 .memory-upload-form-button {

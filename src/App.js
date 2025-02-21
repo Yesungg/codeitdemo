@@ -35,6 +35,9 @@ function App() {
           } 
         />
 
+        {/* ✅ MemoryUpload는 Header 없이 렌더링 */}
+        <Route path="/memoryUpload" element={<MemoryUpload />} />
+
         {/* main 화면을 제회한 부분들은 기본 header사용 */}
         <Route
           path="*"
@@ -47,7 +50,6 @@ function App() {
                 <Route path="/groups" element={<GroupList />} />
                 <Route path="/groups/:groupId" element={<GroupDetail />} />
                 <Route path="/posts/:postId" element={<Post />} />
-                <Route path="/memoryUpload" element={<MemoryUpload />} />
               </Routes>
             </>
           }

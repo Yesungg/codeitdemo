@@ -1,13 +1,11 @@
-const prisma = require('../../prisma/prismaClient');
+const prisma = require('../../prisma/prismaClient.js');
 const bcrypt = require('bcrypt');
-const prisma = require('../../prisma/prismaClient');
-
 
 const createGroup = async (req, res) => {
     try {
         const { name, password, imageUrl, isPublic, introduction } = req.body;
 
-        if (!name || !password) {
+        if (!name || !password) {const prisma = require('../../prisma/prismaClient');
             return res.status(400).json({ message: "그룹명과 비밀번호는 필수 입력값입니다." });
         }
 
@@ -145,23 +143,26 @@ const updateGroup = async (req, res) => {
         const { groupId } = req.params;
         const { password, name, imageUrl, isPublic, introduction } = req.body;
 
-
         const group = await prisma.group.findUnique({
             where: { id: Number(groupId) },
         });
-
 
         if (!group) {
             return res.status(404).json({ message: "그룹이 존재하지 않습니다." });
         }
 
-
-        const passwordMatches = await bcrypt.compare(password, group.password);
-        if (!passwordMatches) {
-            return res.status(403).json({ message: "비밀번호가 틀렸습니다." });
+        // ✅ 비밀번호가 DB에 존재하는 경우에만 비교 수행
+        if (group.password) {
+            if (!password) {
+                return res.status(403).json({ message: "비밀번호를 입력해야 합니다." });
+            }
+            const passwordMatches = await bcrypt.compare(password, group.password);
+            if (!passwordMatches) {
+                return res.status(403).json({ message: "비밀번호가 틀렸습니다." });
+            }
         }
 
-
+        // ✅ 그룹 정보 업데이트
         const updatedGroup = await prisma.group.update({
             where: { id: Number(groupId) },
             data: {
@@ -178,6 +179,7 @@ const updateGroup = async (req, res) => {
         res.status(500).json({ message: "서버 오류 발생" });
     }
 };
+
 
 
 const deleteGroup = async (req, res) => {
@@ -256,7 +258,7 @@ const likeGroup = async (req, res) => {
             }
         });
 
-        res.status(200).json({ message: "그룹 공감하기 성공" });
+        res.status(200).json({ message: "그룹 공감하기 성공", likeCount: updatedGroup.likeCount });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: "서버 오류 발생" });
@@ -285,3 +287,13 @@ const checkGroupIsPublic = async (req, res) => {
     }
 };
 
+module.exports = {
+    createGroup,
+    getGroups, 
+    getGroupById, 
+    updateGroup, 
+    deleteGroup, 
+    verifyGroupPassword, 
+    likeGroup, 
+    checkGroupIsPublic
+}

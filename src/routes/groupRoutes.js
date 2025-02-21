@@ -20,8 +20,8 @@ router.delete('/api/groups/:groupId', deleteGroup);
 // 그룹 조회 권한 확인
 router.post('/api/groups/:groupId/verify-password', verifyGroupPassword);
 
-// 그룹 공감하기
-router.post('/api/groups/:groupId/like', likeGroup);
+// 그룹 공감하기 (수정)
+router.post('/:groupId/like', likeGroup);
 
 // 그룹 공개 여부 확인
 router.get('/api/groups/:groupId/is-public', checkGroupIsPublic);

@@ -4,7 +4,7 @@ import "../styles/global.css";
 function Header() {
   return (
     <header className="header">
-      <img src="main_title.png" alt="조각집" />
+      <img src="../../main_title.png" alt="조각집" />
     </header>
   );
 }

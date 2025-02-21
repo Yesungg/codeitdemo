@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import './Popup.css';
+import axios from 'axios';
 
 function CommentEdit({ commentData, onClose, onEditComment }) {
-  const [comment, setComment] = useState(commentData.comment);
-  const [passwordInput, setPasswordInput] = useState("");
+  const [editedContent, setEditContent] = useState(commentData?.content || "");
+  const [password, setPassword] = useState("");
 
-  const handleCommentChange = (e) => setComment(e.target.value);
-  const handlePasswordChange = (e) => setPasswordInput(e.target.value);
-
-  // 댓글 수정 완료 버튼 클릭 시 실행
-  const handleSubmit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
 
-    // 입력한 비밀번호가 기존 비밀번호와 일치하는지 확인
-    if (passwordInput !== commentData.password) {
-      alert("비밀번호가 일치하지 않습니다.");
+    if (!editedContent.trim() || !password.trim()) {
+      alert("수정할 내용을 입력하고 비밀번호를 입력해주세요.");
       return;
     }
 
-    // 수정된 댓글을 부모 컴포넌트(CommentSection.js)로 전달
-    onEditComment(commentData.id, comment);
+    try {
+      const response = await axios.put(`http://localhost:3000/api/comments/${commentData.id}`, {
+        content: editedContent,
+        password,
+      });
 
-    // 팝업 닫기
-    onClose();
+      console.log("🟢 댓글 수정 성공:", response.data);
+      onEditComment(commentData.id, editedContent);
+      onClose();
+    } catch (error) {
+      console.error("❌ 댓글 수정 오류:", error);
+      alert("비밀번호가 틀리거나 오류가 발생했습니다.");
+    }
   };
   
   return (
@@ -33,19 +37,21 @@ function CommentEdit({ commentData, onClose, onEditComment }) {
           <h2>댓글 수정</h2>
         </div>
         <div class="comment_edit body">
-          <div class="nickName box">
-            <label htmlFor="comment_nickname">닉네임</label>
-            <input id="comment_nickname" type="text" value={commentData.nickname} readOnly />
-          </div>
-          <div class="comment box">
-            <label htmlFor="edit_comment">댓글</label>
-            <input id="edit_comment" name="comment" type="text" placeholder={commentData.comment} value={comment} onChange={handleCommentChange} />
-          </div>
-          <div class="password box">
-            <label htmlFor="password_permission">수정 권한 인증</label>
-            <input id="password_permission" name="password" type="password" placeholder="댓글 비밀번호를 입력해주세요." value={passwordInput} onChange={handlePasswordChange} />
-          </div>
-          <button className="comment_edit popbtn" onClick={handleSubmit} >등록하기</button>
+          <form onSubmit={handleEdit}>
+            <div class="nickName box">
+              <label htmlFor="comment_nickname">닉네임</label>
+              <input id="comment_nickname" type="text" value={commentData.nickname} readOnly />
+            </div>
+            <div class="comment box">
+              <label htmlFor="edit_comment">댓글</label>
+              <input id="edit_comment" name="comment" type="text" placeholder={commentData.comment} value={editedContent} onChange={(e) => setEditContent(e.target.value)} />
+            </div>
+            <div class="password box">
+              <label htmlFor="password_permission">수정 권한 인증</label>
+              <input id="password_permission" name="password" type="password" placeholder="댓글 비밀번호를 입력해주세요." value={password} onChange={(e) => setPassword(e.target.value)} />
+            </div>
+            <button className="comment_edit popbtn" type="submit" >등록하기</button>
+          </form>
         </div>
       </div>
   </div>

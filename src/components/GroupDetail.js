@@ -31,9 +31,9 @@ const GroupDetail = () => {
             axios.get(`http://localhost:3000/api/groups/${numericGroupId}`)
                 .then((response) => {
                     console.log("🟢 그룹 데이터 불러오기 성공:", response.data);
-                    setGroup(response.data);
-                    setLikes(response.data.likes || 0); // 공감 수 초기화
-                    setDDay(calculateDDay(response.data.createdAt)); // ✅ createdAt 기반으로 dDay 설정
+                    setGroup(response.data.data);
+                    setLikes(response.data.data.likes || 0); // 공감 수 초기화
+                    setDDay(calculateDDay(response.data.data.createdAt)); // ✅ createdAt 기반으로 dDay 설정
                 })
                 .catch((error) => console.error("❌ 그룹 데이터를 불러오는 중 오류 발생:", error));
         }
@@ -42,8 +42,8 @@ const GroupDetail = () => {
         // ✅ 백엔드에서 해당 그룹의 게시물 목록 불러오기
         axios.get(`http://localhost:3000/api/groups/${numericGroupId}/posts`)
             .then((response) => {
-                console.log("🟢 그룹 게시물 목록 불러오기 성공:", response.data);
-                setMemories(response.data);
+                console.log("🟢 그룹 게시물 목록 불러오기 성공:", response.data.data);
+                setMemories(response.data.data);
             })
             .catch((error) => console.error("❌ 그룹 게시물 데이터를 불러오는 중 오류 발생:", error));
     }, [groupId]);
@@ -121,7 +121,7 @@ const GroupDetail = () => {
 
                     <div className="group-actions">
                         <button className="like-btn" onClick={handleLikeClick}>
-                            <img src="/img/likebtn.png" alt="공감 아이콘" />
+                            <img src="../../likebtn.png" alt="공감 아이콘" />
                             공감 보내기
                         </button>
                     </div>

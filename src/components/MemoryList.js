@@ -72,7 +72,7 @@ const MemoryList = ({ groupId }) => {
 
                 <div className="memory-search-container">
                     <div className="memory-search-wrapper">
-                        <img src="/img/search-icon.png" alt="검색" className="search-icon" />
+                        <img src="../../search-icon.png" alt="검색" className="search-icon" />
                         <input
                             type="text"
                             className="memory-search"
@@ -98,7 +98,7 @@ const MemoryList = ({ groupId }) => {
             {/* ✅ 필터링된 게시물 목록을 표시 */}
             {filteredMemories.length === 0 ? (
                 <div className="empty-memory">
-                    <img src="/img/empty-icon.svg" alt="추억 없음" className="empty-icon" />
+                    <img src="../../empty-icon.svg" alt="추억 없음" className="empty-icon" />
                     <p className="empty-text">게시된 추억이 없습니다.</p>
                     <p className="empty-subtext">첫 번째 추억을 올려보세요!</p>
                     <button className="memory-write-button2" onClick={() => navigate("/MemoryUpload")}>

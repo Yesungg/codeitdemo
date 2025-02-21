@@ -1,5 +1,8 @@
 label {
   margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: normal;
+  color:#282828;
 }
 
 input {
@@ -22,12 +25,18 @@ input:focus::placeholder {
   color: #282828;
 }
 
+.tag.box {
+  background-color: #fafafa;
+}
+
 textarea {
   padding: 10px;
   background-color: #fafafa;
   border: 1px solid #b8b8b8;
   border-radius: 5px;
   width: 90%;
+  height: 100px;
+  resize: none;
 }
 
 textarea:focus {
@@ -65,9 +74,10 @@ textarea:focus::placeholder {
   border-radius: 5px;
 }
 
-.memo_edit .header {
+.header {
   display: flex;
   flex-direction: column;
+  width: 90%;
 }
 
 .header span {

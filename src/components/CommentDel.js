@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import './Popup.css';
+import axios from 'axios';
 
 function CommentDel({ commentData, onClose, onDeleteComment }) {
-  const [passwordInput, setPasswordInput] = useState("");
+  const [password, setPassword] = useState("");
 
-  // 비밀번호 입력 변경 핸들러
-  const handlePasswordChange = (e) => {
-    setPasswordInput(e.target.value);
-  };
-
-  // 삭제 버튼 클릭 시 실행
-  const handleDelete = () => {
-    // 입력한 비밀번호와 댓글 비밀번호 비교
-    if (passwordInput !== commentData.password) {
-      alert("비밀번호가 일치하지 않습니다.");
+  const handleDelete = async () => {
+    if (!password.trim()) {
+      alert("비밀번호를 입력해주세요.");
       return;
     }
 
-    // 댓글 삭제 실행
-    onDeleteComment(commentData.id);
+    try {
+      await axios.delete(`http://localhost:3000/api/comments/${commentData.id}`, {
+        data: { password }
+      });
 
-    // 팝업 닫기
-    onClose();
+      console.log("🟢 댓글 삭제 성공");
+      onDeleteComment(commentData.id);
+      onClose();
+    } catch (error) {
+      console.error("❌ 댓글 삭제 오류:", error);
+      alert("비밀번호가 틀리거나 오류가 발생했습니다.");
+    }
   };
 
   return (
@@ -34,7 +35,7 @@ function CommentDel({ commentData, onClose, onDeleteComment }) {
         <div className="comment_del body">
           <div className="del box">
             <label htmlFor="del_permission">삭제 권한 인증</label>
-            <input id="del_permission" name="delete" type="password" value={passwordInput} placeholder="추억 비밀번호를 입력해주세요." onChange={handlePasswordChange} />
+            <input id="del_permission" name="delete" type="password" value={password} placeholder="추억 비밀번호를 입력해주세요." onChange={(e) => setPassword(e.target.value)} />
           </div>
           <button className="comment_del popbtn" onClick={handleDelete}>삭제하기</button>
         </div>

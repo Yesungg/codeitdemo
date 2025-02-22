@@ -57,7 +57,7 @@ const MemoryList = ({ groupId }) => {
           } else if (sortOption === "댓글순") {
               return b.commentCount - a.commentCount; // `commentCount` 내림차순 (댓글 많은 순)
           } else if (sortOption === "최신순") {
-              return new Date(b.createdAt) - new Date(a.createdAt); // 최신 글 순
+              return new Date(b.moment) - new Date(a.moment); // 최신 글 순
           }
           return 0;
       });

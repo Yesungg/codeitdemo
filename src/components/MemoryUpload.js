@@ -137,7 +137,8 @@ const MemoryUpload = () => {
 
       if (response.ok) {
         alert("추억이 성공적으로 업로드되었습니다!");
-        navigate(`/groups/${numericGroupId}`); // ✅ 업로드 성공 시 그룹 상세 페이지로 이동
+        console.log("📌 navigate 실행 - 이동할 groupId:", numericGroupId); // ✅ 콘솔 로그 추가
+        navigate(`/`); // ✅ 업로드 성공 시 그룹 상세 페이지로 이동
       } else {
         const errorText = await response.text();
         console.error("업로드 실패:", errorText);

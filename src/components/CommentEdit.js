@@ -3,11 +3,17 @@ import './Popup.css';
 import axios from 'axios';
 
 function CommentEdit({ commentData, onClose, onEditComment }) {
+  const [editedNickname, setEditedNickname] = useState(commentData?.nickname || "");
   const [editedContent, setEditContent] = useState(commentData?.content || "");
   const [password, setPassword] = useState("");
 
   const handleEdit = async (e) => {
     e.preventDefault();
+
+    if (!editedNickname.trim() || !editedContent.trim() || !password.trim()) {
+      alert("닉네임, 댓글 내용을 입력하고 비밀번호를 입력해주세요.");
+      return;
+    }
 
     if (!editedContent.trim() || !password.trim()) {
       alert("수정할 내용을 입력하고 비밀번호를 입력해주세요.");
@@ -16,12 +22,13 @@ function CommentEdit({ commentData, onClose, onEditComment }) {
 
     try {
       const response = await axios.put(`http://localhost:3000/api/comments/${commentData.id}`, {
+        nickname: editedNickname,
         content: editedContent,
         password,
       });
 
       console.log("🟢 댓글 수정 성공:", response.data);
-      onEditComment(commentData.id, editedContent);
+      onEditComment(commentData.id, editedNickname, editedContent);
       onClose();
     } catch (error) {
       console.error("❌ 댓글 수정 오류:", error);

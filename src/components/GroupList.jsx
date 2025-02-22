@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/GroupList.css"; // CSS 파일 불러오기
-import GroupCard from "./GroupCard"; // 그룹 카드 컴포넌트 불러오기
+import GroupCard from "./GroupCard"; // ✅ GroupCard 컴포넌트 가져오기
+
+
 
 // const groups = [
 //   { id: 1, title: "에델바이스", description: "서로 따뜻함을 나눠요", image: "/images/image01.png" },

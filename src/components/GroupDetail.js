@@ -32,16 +32,16 @@ const GroupDetail = () => {
             axios.get(`http://localhost:3000/api/groups/${numericGroupId}`)
                 .then((response) => {
                     console.log("🟢 그룹 데이터 불러오기 성공:", response.data);
-                    setGroup({
-                        ...response.data,
+                    setGroup(prevGroup => ({
+                        ...prevGroup,
+                        ...response.data, 
                         postCount: response.data.postCount ?? 0, // ✅ postCount 기본값 설정
-                    });
-                    setLikes(group.likeCount); // ✅ group.likeCount가 변경될 때마다 likes도 업데이트
+                    }));
+                    setLikes(response.data.likeCount ?? 0); // ✅ group.likeCount가 변경될 때마다 likes도 업데이트
                     setDDay(calculateDDay(response.data.createdAt)); // ✅ createdAt 기반으로 dDay 설정
                 })
                 .catch((error) => console.error("❌ 그룹 데이터를 불러오는 중 오류 발생:", error));
         }
-
 
         // ✅ 백엔드에서 해당 그룹의 게시물 목록 불러오기
         axios.get(`http://localhost:3000/api/groups/${numericGroupId}/posts`)
@@ -56,7 +56,7 @@ const GroupDetail = () => {
                 }));
             })
             .catch((error) => console.error("❌ 그룹 게시물 데이터를 불러오는 중 오류 발생:", error));
-    }, [groupId]);
+    }, [numericGroupId]);
 
     // ✅ `memories` 변경될 때 postCount 업데이트
     useEffect(() => {
@@ -73,22 +73,34 @@ const GroupDetail = () => {
         }
     }, [memories]);
     
-
+    useEffect(() => {
+        if (group?.createdAt) {
+            setDDay(calculateDDay(group.createdAt));
+        }
+    }, [group?.createdAt]);
+    
+   
 
     // ✅ createdAt을 기반으로 D+일 계산하는 함수
-      const calculateDDay = (createdAt) => {
+    const calculateDDay = (createdAt) => {
         if (!createdAt) return 0;
-
+    
         const createdDate = new Date(createdAt);
         const currentDate = new Date();
-
-        // 밀리초 차이를 일(day) 단위로 변환
+    
+        // 📌 날짜 비교를 위해 시, 분, 초를 0으로 설정
+        createdDate.setHours(0, 0, 0, 0);
+        currentDate.setHours(0, 0, 0, 0);
+    
+        // 📌 밀리초 차이를 일(day) 단위로 변환
         const diffTime = currentDate - createdDate;
         const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
+    
+        console.log(`📌 생성 날짜: ${createdDate}, 현재 날짜: ${currentDate}, 차이(D): ${diffDays}`);
+    
         return diffDays >= 0 ? diffDays : 0;
     };
-
+    
 
     // ✅ 공감 버튼 클릭 핸들러
     const handleLikeClick = () => {
@@ -104,24 +116,29 @@ const GroupDetail = () => {
           .catch((error) => console.error("❌ 공감 처리 중 오류 발생:", error));
     };
 
-    // ✅ 그룹 삭제 핸들러
-    const handleDeleteGroup = (password) => {
-        axios.post(`http://localhost:3000/api/groups/${groupId}/verify-password`, { password })
-            .then(() => {
-                axios.delete(`http://localhost:3000/api/groups/${groupId}`)
-                    .then(() => {
-                        alert("그룹이 삭제되었습니다.");
-                        window.location.href = "/"; // 홈으로 리다이렉트
-                    })
-                    .catch((error) => console.error("❌ 그룹 삭제 중 오류 발생:", error));
-            })
-            .catch(() => alert("비밀번호가 틀렸습니다."));
-    };
-
-    if (!group) {
-        return <p>그룹을 찾을 수 없습니다.</p>;
-    }
-
+    {/* ✅ 배지 표시 조건 설정 */}
+    const badges = [
+        { 
+            id: "badge_7_days", 
+            icon: "👾", 
+            text: "7일 연속 게시글 등록", 
+            condition: group?.postCount >= 7 
+        },
+        { 
+            id: "badge_10k_likes_group", 
+            icon: "🌼", 
+            text: "그룹 공감 1만 개 이상 받기", 
+            condition: group?.likeCount >= 10000 
+        },
+        { 
+            id: "badge_10k_likes_memory", 
+            icon: "💖", 
+            text: "추억 공감 1만 개 이상 받기", 
+            condition: group?.memoryLikeCount >= 10000 
+        }
+    ];
+   
+    
     return (
         <section className="group-detail">
             <div className="group-header">
@@ -148,27 +165,21 @@ const GroupDetail = () => {
                     <div class="badge-section">
                         <p class="badge-title">획득 배지</p>
                         <div class="badge-container">
-                            <div class="badge-item">
-                                <span class="badge-icon">👾</span>
-                                <span class="badge-text">7일 연속 게시글 등록</span>
-                            </div>
-                            <div class="badge-item">
-                                <span class="badge-icon">🌼</span>
-                                <span class="badge-text">그룹 공감 1만 개 이상 받기</span>
-                            </div>
-                            <div class="badge-item">
-                                <span class="badge-icon">💖</span>
-                                <span class="badge-text">추억 공감 1만 개 이상 받기</span>
-                            </div>
+                            {badges.filter(badge => badge.condition).map(badge => (
+                                <div key={badge.id} className="badge-item">
+                                    <span className="badge-icon">{badge.icon}</span>
+                                    <span className="badge-text">{badge.text}</span>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
                     <div className="group-management">
                         <button className="group-edit" onClick={() => setIsModalOpen(true)}>그룹 정보 수정하기</button>
-                        {isModalOpen && (<GroupEditModal closeModal={() => setIsModalOpen(false)} groupData={group} onUpdateGroup={setGroup} />)}
+                        {isModalOpen && (<GroupEditModal closeModal={() => setIsModalOpen(false)} groupData={group} onUpdateGroup={setGroup}/>)}
 
                         <button className="group-delete" onClick={() => setIsDeleteModalOpen(true)}>그룹 삭제하기</button>
-                        {isDeleteModalOpen && (<GroupDeleteModal closeModal={() => setIsDeleteModalOpen(false)} onDelete={handleDeleteGroup} />)}
+                        {isDeleteModalOpen && (<GroupDeleteModal closeModal={() => setIsDeleteModalOpen(false)} groupId={group?.id} />)}
                     </div>
 
                     <div className="group-actions">

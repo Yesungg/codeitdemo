@@ -148,10 +148,6 @@ exports.getPostById = async (req, res) => {
       formattedMoment = isNaN(d.getTime()) ? null : d.toISOString();
     }
     
-    // 만약 commentCount가 별도로 계산되어야 한다면, (예: 현재 저장된 값이 부정확하다면)
-    // const commentCount = await prisma.comment.count({ where: { postId: post.id } });
-    // 여기서는 post.commentCount를 그대로 사용한다고 가정
-    
     // API 명세 예시에 맞게 password와 comments 필드는 제거합니다.
     const formattedPost = {
       id: post.id,
